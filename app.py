@@ -54,7 +54,7 @@ def webhook():
 
 
     data = request.get_json()
-    log(data)  #its good for testing nothing else
+    log(data)  #logs
 
     if data["object"] == "page":
 
@@ -70,7 +70,7 @@ def webhook():
                     
 
 
-                    send(sender_id, names)#it will send quote(Random) to the user
+                    send(sender_id, names)
 
                 if messaging_event.get("delivery"):  
                     pass
