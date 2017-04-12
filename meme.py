@@ -7,21 +7,16 @@ import base64
 from bs4 import BeautifulSoup
 import random
 import requests
-#import pymongo
 import requests
 from flask import Flask, request
-# from PIL import Image
 
 app = Flask(__name__)
-# app.config.from_pyfile('flaskapp.cfg')
 
 PAGE_TOKEN = "PAGE TOKEN"
 VERIFY_TOKEN = "app_secret"
 
 @app.route('/', methods=['GET'])
 def verify():
-    # when the endpoint is registered as a webhook, it must
-    # return the 'hub.challenge' value in the query arguments
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == VERIFY_TOKEN:
             return "Verification token mismatch", 403
@@ -53,7 +48,6 @@ def webook():
 
 					sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
 					recipient_id = messaging_event["recipient"]["id"]
-                    # the recipient's ID, which should be your page's facebook ID
                                         print messaging_event
 
 					message_text = messaging_event["message"]["text"]
@@ -154,11 +148,7 @@ def webook():
                                             print image_link
 
                                             send_typing(sender_id)
-                                                            #image=open('trump/image3.png','r')
-                                                            #image=open('trump/image3.png','rb').read()
-                                                            #encoded_string = base64.b64encode(image.read())
-
-                                                            # print image
+                                                            
                                             send_message(sender_id,"hello")
                                             send_typing(sender_id)
 
@@ -196,9 +186,9 @@ def webook():
 
 
 
-    					#send_quick_reply(sender_id)
+    					
 
-				if messaging_event.get("delivery"):  # delivery confirmation
+				if messaging_event.get("delivery"): 
 					pass
 
 				if messaging_event.get("optin"):  # optin confirmation
@@ -208,15 +198,15 @@ def webook():
 					msg = messaging_event["postback"]['payload']
 					send_id = messaging_event["sender"]['id']
 
-					if msg == "Trump":
-						send_message(send_id, "Welcome to HeyFacts! Explore crazy facts with just one tap.")
+					if msg == "Meme":
+						send_message(send_id, "Welcome to Meme Bot! Explore crazy Memes with just one tap.")
 						send_message(send_id, "Tell us HI and start reading.")
-					elif msg == "prattle":
+					elif msg == "kashyap":
 						send_image(send_id, "http://i.imgur.com/kDhvK3w.png")
-						send_msg = "HeyFacts is made by Prattle, Ahmedabad, India based chatbot focused startup. \nDrop us query : info@getprattle.com \nvisit website : www.getprattle.com"
+						send_msg = "Hello World!!"
 						send_message(send_id, send_msg)
 					elif msg == "what":
-						send_message(send_id, "Send us HI and get cool facts around the world.")
+						send_message(send_id, "Send us HI and get cool memes around the world.")
 
 
     return "ok", 200
@@ -370,13 +360,13 @@ def per_menu():
 			"call_to_actions":[
 				{
 					"type":"postback",
-					"title":"What is HeyFacts?",
+					"title":"What Meme Bot",
 					"payload":"what"
 				},
 				{
 					"type":"postback",
-					"title":"Created by Prattle",
-					"payload":"prattle"
+					"title":"Created by Kashyap",
+					"payload":"kashyap"
 				}
 			]
 		})
